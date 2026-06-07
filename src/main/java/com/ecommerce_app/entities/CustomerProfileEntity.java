@@ -24,6 +24,6 @@ public class CustomerProfileEntity {
     @Column(nullable = false)
     private String pincode;
 
-    @OneToOne(mappedBy = "customer_profile")
+    @OneToOne(mappedBy = "customer_profile" , fetch = FetchType.LAZY)
     private CustomerEntity customer;
 }

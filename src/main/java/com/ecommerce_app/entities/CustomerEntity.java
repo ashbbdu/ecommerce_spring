@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 
 import lombok.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -26,7 +29,11 @@ public class CustomerEntity {
     @Column(nullable = false)
     private String phone;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_profile_id")
     private CustomerProfileEntity customer_profile;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<OrderEntity> orders;
+
 }

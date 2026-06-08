@@ -10,12 +10,11 @@ import com.ecommerce_app.repositories.ProductRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -53,9 +52,9 @@ public class ProductService {
                 .build();
     }
 
-    public List<ProductResponse> getAllProducts () {
-        PageRequest page = PageRequest.of(0 , 10);
-        List<ProductEntity> products = productRepository.findAll(page).getContent();
+    public List<ProductResponse> getAllProducts (Long pageNumber) {
+        Pageable pageable = PageRequest.of((int)(pageNumber - 1) , 10);
+        List<ProductEntity> products = productRepository.findAll(pageable).getContent();
         return products.stream().map(res -> modelMapper.map(res , ProductResponse.class)).toList();
 
     }

@@ -36,7 +36,7 @@ public class ProductController {
 
     @GetMapping(path = "/list/{pageNumber}")
     public ResponseEntity<ApiResponse<List<ProductResponse>>> getAllProducts (@PathVariable Long pageNumber) {
-        List<ProductResponse> products = productService.getAllProducts();
+        List<ProductResponse> products = productService.getAllProducts(pageNumber);
 
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ApiResponse<>(

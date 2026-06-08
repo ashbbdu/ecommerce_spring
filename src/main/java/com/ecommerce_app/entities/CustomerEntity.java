@@ -43,6 +43,6 @@ public class CustomerEntity {
     private CustomerProfileEntity customer_profile;
 
     @OneToMany(mappedBy = "customer")
-    private Set<OrderEntity> orders;
+    private List<OrderEntity> orders;
 
 }

@@ -13,6 +13,8 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 @Data
@@ -28,6 +30,19 @@ public class ProductController {
                         true,
                         "Product added successfully !",
                         product
+                )
+        );
+    }
+
+    @GetMapping(path = "/list/{pageNumber}")
+    public ResponseEntity<ApiResponse<List<ProductResponse>>> getAllProducts (@PathVariable Long pageNumber) {
+        List<ProductResponse> products = productService.getAllProducts();
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ApiResponse<>(
+                        true,
+                        "Products fetched successfully !",
+                        products
                 )
         );
     }

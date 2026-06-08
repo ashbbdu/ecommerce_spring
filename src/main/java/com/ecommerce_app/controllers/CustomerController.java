@@ -9,10 +9,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
@@ -41,6 +40,30 @@ public class CustomerController {
                                 customer
                         )
                 );
+    }
+
+    @GetMapping(path = "/{customerId}")
+    public ResponseEntity<ApiResponse<CustomerResponseDto>> getCustomerById (@PathVariable Long customerId) {
+        CustomerResponseDto customer = customerService.getCustomerById(customerId);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ApiResponse<>(
+                        true,
+                        "Customer fetched successfully",
+                        customer
+                )
+        );
+    }
+
+    @GetMapping(path = "/list")
+    public ResponseEntity<ApiResponse<List<CustomerResponseDto>>> getALlCustomers () {
+        List<CustomerResponseDto> customers = customerService.getAllCustomers();
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ApiResponse<>(
+                        true,
+                        "Customers fetched successfully",
+                        customers
+                )
+        );
     }
 
 }

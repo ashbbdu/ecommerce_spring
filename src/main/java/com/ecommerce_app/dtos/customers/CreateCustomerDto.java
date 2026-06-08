@@ -16,6 +16,7 @@ public class CreateCustomerDto {
     @NotBlank(message = "Email is required")
     private String email;
 
+
     @Pattern(
             regexp = "^[0-9]{10}$",
             message = "Phone must contain 10 digits"

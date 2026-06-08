@@ -15,7 +15,16 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "customers")
+@Table(name = "customers" , uniqueConstraints = {
+        @UniqueConstraint(
+                name = "uk_customer_email",
+                columnNames = "email"
+        ),
+        @UniqueConstraint(
+                name = "uk_customer_phone",
+                columnNames = "phone"
+        )
+})
 public class CustomerEntity {
 
     @Id
@@ -24,9 +33,9 @@ public class CustomerEntity {
 
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false , unique = true)
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false , unique = true)
     private String phone;
 
     @OneToOne(fetch = FetchType.LAZY)
